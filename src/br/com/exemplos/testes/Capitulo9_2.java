@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import br.com.exemplos.usuario.Usuario;
@@ -64,10 +65,16 @@ public class Capitulo9_2 {
 
 		// Filtrar os usuários com mais de 100 pontos, ordená-los e coletar o
 		// resultado em uma lista
-		List<Usuario> filtradosOrdenados = usuarios.stream().filter(u -> u.getPontos() > 100)
+		List<Usuario> filtradosOrdenados = usuarios.stream().filter(u -> u.getPontos() > 140)
 				.sorted(Comparator.comparing(Usuario::getPontos)).collect(Collectors.toList());
-		
-		//System.out.println(filtradosOrdenados);
+
+		filtradosOrdenados.forEach(f->System.out.println(f.getNome()));
+		 System.out.println("-----------------------");
+		//ParallelStream
+		List<Usuario> filtrarOrdenados2 = usuarios.parallelStream().filter(u -> u.getPontos() > 140)
+				.sorted(Comparator.comparing(Usuario::getNome)).collect(Collectors.toList());
+		//System.out.println(filtrarOrdenados2.iterator().next().getNome());
+		filtrarOrdenados2.forEach(f->System.out.println(f.getNome()));
 	}
 
 }
